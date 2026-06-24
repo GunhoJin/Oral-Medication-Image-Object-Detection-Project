@@ -4,37 +4,64 @@
 [![Python](https://img.shields.io/badge/Python-3.10%2B-3776AB?logo=python&logoColor=white)](https://www.python.org/)
 [![Colab](https://img.shields.io/badge/Google%20Colab-supported-F9AB00?logo=googlecolab&logoColor=white)](https://colab.research.google.com/)
 
-An object detection project for recognizing oral medication images in a healthcare scenario.
+> Detect pills in medication photos and turn them into structured healthcare information.
 
-This repo is built around a beginner mission: detect up to 4 pills in a photo and classify each pill with a bounding box.
+## Overview
 
-## Project Overview
+This project is a beginner-level object detection mission for a healthcare scenario.
+The goal is to detect up to four pills in an image and predict each pill's class with a bounding box.
+
+### What the notebook does
+
+- Mounts Google Drive in Colab
+- Loads merged annotation JSON files
+- Builds a dataframe from image and annotation records
+- Remaps category IDs for training
+- Checks class imbalance
+- Checks the number of pills per image
+- Analyzes bounding box sizes
+- Draws boxes on sample images for visual QA
+
+## Results & Findings
+
+The current notebook focuses on exploratory analysis rather than final model training metrics.
+
+### What is currently verified
+
+- Class distribution across the 73 categories
+- Number of pills per image
+- Bounding box area distribution
+- Visual sanity checks with sample images
+
+### What is not yet documented here
+
+- Final training score
+- Kaggle leaderboard score
+- Test-time inference metrics
+
+If you add a trained baseline later, this section is the right place for:
+
+- mAP
+- precision / recall
+- loss curves
+- comparison against previous runs
+
+## Project Context
 
 Imagine a healthcare startup team called **Health Eat**.
 
-The goal is to build a model that can:
+The product idea is simple:
 
-- Detect pills in a user-uploaded image
-- Classify each pill
-- Return bounding boxes for the detected objects
-- Support a healthcare use case where medication information can be shown to users
-
-The notebook currently focuses on:
-
-- Loading merged COCO-style annotations
-- Building a training dataframe
-- Mapping category IDs for model training
-- Checking class imbalance
-- Checking the number of pills per image
-- Analyzing bounding box sizes
-- Visual QA by drawing boxes on sample images
+- A user takes a photo of their medication
+- The model detects pills and identifies them
+- The app can then present medication information and safety guidance
 
 ## Dataset Notes
 
-- The task uses a merged annotation format
+- The task uses merged COCO-style annotations
 - The notebook references 73 classes
 - The mission states that each image may contain up to 4 pills
-- Train and test image folders are handled separately in the notebook
+- Training and test image folders are handled separately in the notebook
 
 ## Tech Stack
 
@@ -56,23 +83,23 @@ The notebook currently focuses on:
 | `LICENSE` | MIT License |
 | `test.ipynb` | Main notebook for data analysis and model preparation |
 
-## Notebook Workflow
+## Notebook Flow
 
-1. Mount Google Drive in Colab
-2. Normalize paths for Korean directory names
+1. Mount Google Drive
+2. Normalize Korean paths
 3. Load merged annotation JSON files
-4. Build a dataframe from image and annotation records
-5. Remap category IDs for model training
+4. Convert annotations into a dataframe
+5. Map category IDs for model training
 6. Plot class distribution
-7. Check pills per image
-8. Analyze bounding box area distribution
-9. Visualize real images with bounding boxes
+7. Count pills per image
+8. Inspect bounding box areas
+9. Visualize samples with bounding boxes
 
 ## How to Run
 
-Open `test.ipynb` in Google Colab or Jupyter, then follow the notebook cells in order.
+Open `test.ipynb` in Google Colab or Jupyter and run the cells in order.
 
-Typical setup flow:
+Typical setup:
 
 ```python
 from google.colab import drive
@@ -81,21 +108,13 @@ drive.mount('/content/drive')
 
 Then update the dataset path inside the notebook to match your environment.
 
-## Example Output Checks
-
-- Class imbalance plot
-- Pills per image distribution
-- Bounding box size histogram
-- Sample image visualization with boxes
-
 ## Roadmap
-
-Possible next steps for this project:
 
 - Train a baseline detector
 - Tune augmentation and anchor settings
-- Add evaluation metrics
-- Export submission files for Kaggle-style validation
+- Add validation metrics
+- Export submission files for Kaggle-style evaluation
+- Add sample screenshots to the README
 
 ## License
 
@@ -109,37 +128,64 @@ MIT License. See [LICENSE](LICENSE) for details.
 [![Python](https://img.shields.io/badge/Python-3.10%2B-3776AB?logo=python&logoColor=white)](https://www.python.org/)
 [![Colab](https://img.shields.io/badge/Google%20Colab-supported-F9AB00?logo=googlecolab&logoColor=white)](https://colab.research.google.com/)
 
-헬스케어 환경에서 복용 중인 약 사진을 인식하는 객체 탐지 프로젝트입니다.
+> 약 사진에서 알약을 탐지해 구조화된 헬스케어 정보로 바꾸는 프로젝트입니다.
 
-초급 미션 기준으로, 한 장의 이미지에서 최대 4개의 알약을 탐지하고 각 객체의 위치와 클래스를 예측하는 것이 목표입니다.
+## 개요
 
-## 프로젝트 개요
+이 프로젝트는 헬스케어 시나리오를 위한 초급 객체 탐지 미션입니다.
+한 장의 이미지에서 최대 4개의 알약을 탐지하고, 각 알약의 클래스와 바운딩 박스를 예측하는 것이 목표입니다.
 
-이 프로젝트는 **헬스잇(Health Eat)** 이라는 헬스케어 스타트업 팀 상황을 가정합니다.
+### 노트북이 하는 일
 
-목표는 다음과 같습니다.
-
-- 사용자가 업로드한 약 사진에서 알약을 탐지
-- 각 알약의 클래스를 분류
-- 바운딩 박스를 함께 예측
-- 복약 정보 제공을 위한 헬스케어 활용 시나리오에 적용
-
-현재 노트북은 주로 아래 작업을 수행합니다.
-
-- 병합된 COCO 형식 어노테이션 로드
-- 학습용 데이터프레임 생성
-- 모델 학습용 category ID 매핑
+- Colab에서 Google Drive 마운트
+- 병합된 annotation JSON 로드
+- 이미지와 어노테이션으로 데이터프레임 생성
+- 학습용 category ID 재매핑
 - 클래스 불균형 확인
 - 이미지당 알약 개수 확인
 - 바운딩 박스 크기 분석
-- 샘플 이미지에 박스를 그려 시각적 검증
+- 샘플 이미지에 박스 시각화
+
+## 결과 및 확인 사항
+
+현재 노트북은 최종 학습 점수보다 탐색적 분석에 초점이 있습니다.
+
+### 지금 확인된 내용
+
+- 73개 클래스의 분포
+- 이미지당 알약 개수
+- 바운딩 박스 면적 분포
+- 샘플 이미지 시각 검증
+
+### 아직 여기에는 없는 내용
+
+- 최종 학습 성능
+- Kaggle 리더보드 점수
+- 테스트 시점 추론 지표
+
+나중에 기준 모델을 학습하면 여기에 다음 항목을 넣는 것이 좋습니다.
+
+- mAP
+- precision / recall
+- loss curve
+- 이전 실험과의 비교
+
+## 프로젝트 배경
+
+이 프로젝트는 **헬스잇(Health Eat)** 이라는 헬스케어 스타트업 팀 상황을 가정합니다.
+
+서비스 아이디어는 다음과 같습니다.
+
+- 사용자가 복용 중인 약을 사진으로 찍는다
+- 모델이 알약을 탐지하고 식별한다
+- 앱이 약물 정보를 안내한다
 
 ## 데이터 참고 사항
 
-- 병합된 annotation JSON 형식을 사용합니다
+- 병합된 COCO 형식 annotation을 사용합니다
 - 노트북 기준 클래스 수는 73개입니다
 - 미션상 이미지당 최대 4개의 알약을 다룹니다
-- 학습용 이미지와 테스트용 이미지를 분리해서 사용합니다
+- 학습 이미지와 테스트 이미지를 분리해서 사용합니다
 
 ## 사용 기술
 
@@ -161,46 +207,38 @@ MIT License. See [LICENSE](LICENSE) for details.
 | `LICENSE` | MIT 라이선스 |
 | `test.ipynb` | 데이터 분석 및 모델 준비용 메인 노트북 |
 
-## 노트북 진행 흐름
+## 노트북 흐름
 
-1. Colab에서 Google Drive 마운트
-2. 한글 경로를 위해 경로 문자열 정규화
-3. 병합된 annotation JSON 파일 로드
-4. 이미지와 어노테이션 정보를 데이터프레임으로 변환
+1. Google Drive 마운트
+2. 한글 경로 정규화
+3. 병합된 annotation JSON 로드
+4. 어노테이션을 데이터프레임으로 변환
 5. category ID를 학습용으로 재매핑
 6. 클래스 분포 시각화
-7. 이미지당 알약 개수 확인
-8. 바운딩 박스 면적 분포 확인
-9. 샘플 이미지에 박스 시각화
+7. 이미지당 알약 개수 계산
+8. 바운딩 박스 면적 확인
+9. 샘플 이미지 박스 시각화
 
 ## 실행 방법
 
-`test.ipynb`를 Google Colab 또는 Jupyter에서 열고 순서대로 실행합니다.
+`test.ipynb`를 Google Colab 또는 Jupyter에서 열고 셀을 순서대로 실행합니다.
 
-기본 예시는 다음과 같습니다.
+기본 설정 예시:
 
 ```python
 from google.colab import drive
 drive.mount('/content/drive')
 ```
 
-그 다음 노트북 안의 데이터셋 경로를 자신의 환경에 맞게 수정하면 됩니다.
-
-## 확인 가능한 예시 결과
-
-- 클래스 불균형 그래프
-- 이미지당 알약 개수 분포
-- 바운딩 박스 크기 히스토그램
-- 박스가 그려진 샘플 이미지
+그 다음 노트북의 데이터 경로를 자신의 환경에 맞게 수정하면 됩니다.
 
 ## 다음 단계
 
-이 프로젝트의 다음 작업 후보는 다음과 같습니다.
-
 - 기준 객체 탐지 모델 학습
 - 데이터 증강 및 앵커 설정 조정
-- 평가 지표 추가
+- 검증 지표 추가
 - Kaggle 제출 파일 생성
+- README에 스크린샷 추가
 
 ## 라이선스
 
